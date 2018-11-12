@@ -1,0 +1,9 @@
+<html>
+<head>
+	<title>Response</title>
+</head>
+<body>
+	 ${message}
+	 ${sal}
+</body>
+</html>
