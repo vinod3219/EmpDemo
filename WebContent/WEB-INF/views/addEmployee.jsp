@@ -7,11 +7,53 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	</head>
+	<script type="text/javascript">
+function check() {
+	
+	 var loginName = document.forms["empCreate"]["loginName"];
+	 var password = document.forms["empCreate"]["password"] ;
+	 var fName = document.forms["empCreate"]["fName"];
+	 var mobileNo = document.forms["empCreate"]["mobileNo"];
+	 var salary = document.forms["empCreate"]["salary"];
+	 
+	 if(loginName.value == "" ){
+		 alert( "Please provide loginName!" );
+		 loginName.focus() ;
+	     return false;
+	 }
+	 
+	 if(password.value == "" ){
+		 alert( "Please provide Password!" );
+		 password.focus() ;
+	     return false;
+	 }
+	 
+	 if(fName.value == "" ){
+		 alert( "Please provide first Name!" );
+		 fName.focus() ;
+	     return false;
+	 }
+	 
+	 if(mobileNo.value == "" ){
+		 alert( "Please provide mobile Number!" );
+		 mobileNo.focus() ;
+	     return false;
+	 }
+	 
+	 if(salary.value == "" ){
+		 alert( "Please provide Salary!" );
+		 salary.focus() ;
+	     return false;
+	 }
+	 return true;
+}
+</script>
+
 	<body>
 	<jsp:include page="header.jsp"/>
 		<h2>Add Employee Data</h2>
 		<font color="red"> ${errorMsg }</font>
-		<form:form method="POST" action="empCreate"  commandName="command">
+		<form:form method="post" action="empCreate" name="empCreate" commandName="command" onsubmit="return check();">
 	   		<table>
 			   <tr>
 			        <td><label id="empLoginLbl">Employee login Name:</label></td>
@@ -20,7 +62,7 @@
 			    
 			     <tr>
 			        <td><label id="empPwdLbl">Employee Password:</label></td>
-                    <td><form:input path="password" /></td>
+                    <td><form:password path="password" /></td>
 			    </tr>
 			    <tr>
 			        <td><label id="empFnameLbl">Employee First Name:</label> </td>
@@ -47,8 +89,8 @@
 			    <tr>
 			        <td><label id="genderLbl">Gender:</label></td>
 			        <td>
-			        	<input type="radio" name="gender" value="male"  checked/>Male
-			        	<input type="radio" name="gender" value="female" />Female
+			        	<input type="radio" id="mRadio" name="gender" value="male"  checked/>Male
+			        	<input type="radio" id="fRadio" name="gender" value="female" />Female
 			        </td>
 			    </tr>
 			    
@@ -101,11 +143,20 @@
 			    
 			    <tr>
 			   <td><label id="statusLbl">Marital Status:</label></td>
-			        <td><form:input path="maritalStatus" /></td>
+			        <td>
+			         <select name="maritalStatus">
+				        <option value="single">Single</option>
+				        <option value="divorsed">Divorsed</option>
+				        <option value="married">Married</option>
+				     </select> 
+			        </td>
 			    </tr>		
 			    
 			<jsp:include page="addAddress.jsp"/>
-			
+			<tr> <td>
+			  <input id="accept" type="checkbox" value="Accept"/> I accept
+			  </td> </tr>
+			  
 			 <tr>
 			      <td colspan="2">
 			      <input id="submit" type="submit" value="Submit"/></td>

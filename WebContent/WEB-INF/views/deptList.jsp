@@ -7,6 +7,8 @@
 <body>
 <jsp:include page="header.jsp"/>
 <h3>List of Departments</h3>
+
+<font color="red">${msg }</font>
 <c:if test="${empty depts}">
 	No Departments Available.
 </c:if>		
@@ -26,7 +28,10 @@
 				<td> ${department.name}</td>
 				<td> ${department.deptHeadIdAndName}</td>
 				<td> ${department.createdDate}</td>
-				<td align="center"><a href="deptUpdate?id=${department.id}">Edit</a> | <a href="empDelete?id=${employee.id}">Delete</a></td>  
+				<td align="center">
+				<a href="deptUpdate?id=${department.id}">Edit</a> | 
+				<a href="deptDelete?id=${department.id}">Delete</a>
+				</td>  
 			</tr>
 		</c:forEach>
 		

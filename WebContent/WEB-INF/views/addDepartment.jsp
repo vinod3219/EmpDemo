@@ -7,11 +7,24 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	</head>
+	<script type="text/javascript">
+	function check() {
+		 var deptName = document.forms["deptCreate"]["name"];
+		 
+		 if(deptName.value == "" ){
+			 alert( "Please provide department Name!" );
+			 deptName.focus() ;
+		     return false;
+		 }
+		 return true;
+	}
+	</script>
+
 	<body>
 	<jsp:include page="header.jsp"/>
 		<h2><label id="addDeptLbl">Add Department</label> </h2>
 		<font color="red"> ${msg }</font>
-		<form:form method="POST" action="deptCreate" commandName="command">
+		<form:form method="POST" name="deptCreate" action="deptCreate" commandName="command" onsubmit="return check();">
 	   		<table>
 			     <tr>
 			        <td><label id="deptLbl">Department Name:</label> </td>

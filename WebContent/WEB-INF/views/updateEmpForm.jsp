@@ -93,7 +93,7 @@
 			    </tr>
 			    
 			    <tr>
-			        <td><label id="pinLbl${i}">Pin Code:></label> </td>
+			        <td><label id="pinLbl${i}">Pin Code:</label> </td>
 			        <td><input type="text"  name="addresses[${i}].pin" 
 			        value='<c:out value="${addresses[i].pin}"/>' />
 			        <input type="hidden" name="addresses[${i}].addressType" value= "${i +1}"/>

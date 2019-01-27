@@ -8,7 +8,7 @@
 <body>
 <jsp:include page="header.jsp"/>
 <h3>My Profile</h3>
- 	<a href="empUpdate?id=${employee.id}"><label id="updateProfile">Update Profile</label></a>
+ 	<a href="empUpdate?id=${employee.id}"><label id="updateProfile">Update Profile</label></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <a href="changePwd"><label id="changePwd">Change Password</label></a>
  
  <br/><br/>
@@ -41,7 +41,7 @@
 		
 		<tr>
 			<td><label id="managerLbl">Manager Name:</label></td> <td> 
-			${employee.manager!=null ? employee.manager.fName + employee.manager.lName : 'NA' }
+			${employee.managerName}
 			</td>
 		</tr>
 		

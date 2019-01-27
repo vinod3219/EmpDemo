@@ -114,7 +114,7 @@ li.dropdown {
   </li>
   </c:if>
   
- <li><a  href="logout">
+ <li><a name="logoutLink" href="logout">
  <label id="logoutLbl">Logout</label>
  </a></li>
 </ul>

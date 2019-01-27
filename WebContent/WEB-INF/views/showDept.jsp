@@ -12,7 +12,6 @@
 	<label id="noDeptLbl">Department not found</label>
 	</c:if>
 
-
 	<c:if test="${not empty department }">
 		<h3><label id="deptDetailsLbl">Department Details</label></h3>
 		<table align="left" border="1">
