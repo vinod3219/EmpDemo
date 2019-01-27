@@ -5,7 +5,8 @@ public enum ErrorCodes {
 	
 	ERROR1("erro1","age is invalid"),
 	ERROR2("erro2","Name already exists"),
-	ERROR3("erro3","Name doesnt exists..");
+	ERROR3("erro3","Name doesnt exists.."),
+	ERROR4("erro4","There are existing employess for the department Id.");
 	
 	private String errorCode;
 	private String desc;

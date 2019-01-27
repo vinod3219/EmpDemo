@@ -31,4 +31,6 @@ public interface EmployeeService {
 	ResponseDTO<Employee> getAllEmps(String sortBy);
 
 	public List<Employee> getBasicEmpDetails();
+
+	public boolean changePwd(Employee employee, String oldPass, String newPass);
 }

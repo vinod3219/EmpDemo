@@ -41,6 +41,7 @@ import com.mythri.util.UserException;
 @Controller
 public class EmployeeController {
 
+	private static final String GET_ALL_EMPS = "getAllEmps";
 	@Autowired
 	private EmployeeService employeeService;
 	
@@ -70,7 +71,6 @@ public class EmployeeController {
 		model.addObject("msg", "Employee Created!");
 		return model;
 	}
-
 
 	@RequestMapping(value = EMP_PROFILE, method = RequestMethod.GET)
 	public ModelAndView empProfile(HttpSession session) {
@@ -113,7 +113,7 @@ public class EmployeeController {
 		return new ModelAndView("empAdvanceSearch", map);
 	}
 
-	@RequestMapping(value = "getAllEmps", method = RequestMethod.GET)
+	@RequestMapping(value = GET_ALL_EMPS, method = RequestMethod.GET)
 	public ModelAndView performAdvSearch(@RequestParam(value="sortBy",required=false,defaultValue="id") String sortBy ) {
 		ResponseDTO<Employee> dto = employeeService.getAllEmps(sortBy);
 		List<Employee> listOfEmployees = dto.getResponseList();

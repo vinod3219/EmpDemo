@@ -141,7 +141,19 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		session.close();
 		return resDto;
 	}
-
+	
+	public void updatePwd(Integer id, String newPass){
+		Session session = sessionFactory.openSession();
+		Transaction transaction = session.getTransaction();
+		transaction.begin();
+		Query query1 = session.createQuery("Update Employee set password=:pwd where id=:id");
+		query1.setParameter("pwd", newPass);
+		query1.setParameter("id", id);
+		query1.executeUpdate();
+		transaction.commit();
+		session.close();
+	}
+	
 	private void updatePaginationSettings(int pageNo,ResponseDTO<Employee> resDto, 
 			Query query) {
 		Session session = sessionFactory.getCurrentSession();

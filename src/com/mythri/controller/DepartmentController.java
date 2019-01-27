@@ -1,6 +1,11 @@
 package com.mythri.controller;
 
 import static com.mythri.util.Constants.COMMAND;
+import static com.mythri.util.Constants.DEPT_CREATE;
+import static com.mythri.util.Constants.DEPT_DELETE;
+import static com.mythri.util.Constants.DEPT_UPDATE;
+import static com.mythri.util.Constants.GET_DEPTS;
+import static com.mythri.util.Constants.SEARCH_DEPT;
 
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +13,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,7 +36,7 @@ public class DepartmentController {
 	@Autowired
 	private EmployeeService empService;
 
-	@RequestMapping(value = "/deptCreate", method = RequestMethod.GET)
+	@RequestMapping(value = DEPT_CREATE, method = RequestMethod.GET)
 	public ModelAndView registerForm() {
 		List<Employee> emps = empService.getBasicEmpDetails();
 		ModelAndView modelAndView = new ModelAndView("addDepartment", COMMAND,
@@ -39,7 +45,7 @@ public class DepartmentController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/deptCreate", method = RequestMethod.POST)
+	@RequestMapping(value = DEPT_CREATE, method = RequestMethod.POST)
 	public ModelAndView saveDepartment(
 			@ModelAttribute(COMMAND) Department department, BindingResult result) {
 		try {
@@ -51,20 +57,12 @@ public class DepartmentController {
 			modelAndView.addObject("errorMsg", msg);
 			return modelAndView;
 		}
-		ModelAndView modelAndView = new ModelAndView("showDept");
+		ModelAndView modelAndView = new ModelAndView("showNewDept");
 		modelAndView.addObject("department", department);
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/deptDelete", method = RequestMethod.GET)
-	public ModelAndView deleteDepartment(@RequestParam("id") int id) {
-		Department dept = new Department();
-		dept.setId(id);
-		departmentService.deleteDepartment(dept);
-		return new ModelAndView("employeesList", null);
-	}
-
-	@RequestMapping(value = "/deptUpdate", method = RequestMethod.GET)
+	@RequestMapping(value = DEPT_UPDATE, method = RequestMethod.GET)
 	public ModelAndView editDepartment(@RequestParam("id") int id) {
 		Department department = departmentService.getDepartmentById(id);
 		Map<String, Object> model = new HashMap<String, Object>();
@@ -72,33 +70,45 @@ public class DepartmentController {
 		return new ModelAndView("showUpdateDept", model);
 	}
 
-	@RequestMapping(value = "/deptUpdate", method = RequestMethod.POST)
+	@RequestMapping(value = DEPT_UPDATE, method = RequestMethod.POST)
 	public ModelAndView updateEmployee(
 			@ModelAttribute(COMMAND) Department department, BindingResult result) {
 		departmentService.updateDepartment(department);
 		return new ModelAndView("showUpdateDept", "department", department);
 	}
 
-	@RequestMapping(value = "/getDepts", method = RequestMethod.GET)
-	public ModelAndView getDeps() {
+	@RequestMapping(value = GET_DEPTS, method = RequestMethod.GET)
+	public ModelAndView getDeps(ModelMap modelMap) {
 		List<Department> list = departmentService.listDepartments();
-		Map<String, Object> map = new HashMap<>();
-		map.put("depts", list);
-		return new ModelAndView("deptList", map);
+		modelMap.put("depts", list);
+		return new ModelAndView("deptList", modelMap);
 	}
 
-	@RequestMapping(value = "/searchDept", method = RequestMethod.GET)
+	@RequestMapping(value = SEARCH_DEPT, method = RequestMethod.GET)
 	public ModelAndView showSearchdept() {
 		return new ModelAndView("searchDept");
 	}
 
-	@RequestMapping(value = "/searchDept", method = RequestMethod.POST)
+	@RequestMapping(value = SEARCH_DEPT, method = RequestMethod.POST)
 	public ModelAndView processSearchdept(@RequestParam("name") String name) {
 		Department department = departmentService.getDeptWithEmps(name);
 		ModelAndView modelAndView = new ModelAndView("searchDept");
 		modelAndView.addObject("department", department);
 		if (department == null) {
 			modelAndView.addObject("msg", "Department Not found");
+		}
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = DEPT_DELETE, method = RequestMethod.GET)
+	public ModelAndView deleteDepartment(@RequestParam("id") int id) {
+		Department dept = new Department();
+		dept.setId(id);
+		ModelAndView modelAndView = new ModelAndView("redirect:" + GET_DEPTS);
+		try {
+			departmentService.deleteDepartment(dept);
+		} catch (UserException e) {
+			modelAndView.addObject("msg",e.getMessage());
 		}
 		return modelAndView;
 	}

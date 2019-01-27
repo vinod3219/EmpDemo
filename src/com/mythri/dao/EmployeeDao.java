@@ -33,4 +33,6 @@ public interface EmployeeDao {
 
 	public List<Employee> getBasicEmpDetails();
 
+	public void updatePwd(Integer id, String newPass);
+
 }

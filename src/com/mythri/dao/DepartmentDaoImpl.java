@@ -63,9 +63,20 @@ public class DepartmentDaoImpl implements DepartmentDao {
 	}
 	
 	@Override
+	public Long getEmpCountForDeptId(int deptId) {
+		Session session = sessionFactory.openSession();
+		Query query = session.createQuery("select count(*) from Employee e where e.department.id=:DeptId");
+		query.setParameter("DeptId", deptId);
+		return (Long)query.uniqueResult();
+	}
+	
+	@Override
 	public void deleteDepartment(Department department) {
 		Session session = sessionFactory.openSession();
+		Transaction transaction = session.getTransaction();
+		transaction.begin();
 		session.delete(department);
+		transaction.commit();
 		session.close();
 	}
 

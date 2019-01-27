@@ -3,6 +3,7 @@ package com.mythri.dao;
 import java.util.List;
 
 import com.mythri.entity.Department;
+import com.mythri.entity.Employee;
 import com.mythri.util.UserException;
 
 public interface DepartmentDao {
@@ -20,4 +21,6 @@ public interface DepartmentDao {
 	public List<String> getDepartmentNames();
 
 	Department getDeptWithEmps(String name);
+
+	Long getEmpCountForDeptId(int deptId);
 }

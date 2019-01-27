@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mythri.entity.Employee;
@@ -36,11 +37,23 @@ public class CommonController {
 	}
 
 	@RequestMapping(value = "changePwd", method = RequestMethod.GET)
-	public String changePwd() {
+	public String changePwdScreen() {
 		return "changePwd";
 	}
 	
-	// logic for validating uname and pwd
+	@RequestMapping(value = "changePwd", method = RequestMethod.POST)
+	public ModelAndView changePwd(HttpSession session,
+			@RequestParam("currPass") String oldPass,
+			@RequestParam("newPass") String newPass) {
+		Employee employee = (Employee) session.getAttribute("empSession");
+		boolean changePwd = employeeService.changePwd(employee, oldPass, newPass);
+		String msg = "Invalid Old password";
+		if (changePwd) {
+			msg = "Password update successful.";
+		}
+		return new ModelAndView("changePwd", "msg", msg);
+	}
+	
 	@RequestMapping(value = LOGIN, method = RequestMethod.POST)
 	public ModelAndView login(@ModelAttribute(COMMAND) Employee employee,
 			BindingResult result,HttpSession session) {

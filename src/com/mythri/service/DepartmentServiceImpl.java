@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mythri.dao.DepartmentDao;
 import com.mythri.entity.Department;
+import com.mythri.util.ErrorCodes;
 import com.mythri.util.UserException;
 
 @Service("departmentService")
@@ -35,7 +36,11 @@ public class DepartmentServiceImpl implements DepartmentService{
 	}
 
 	@Override
-	public void deleteDepartment(Department department) {
+	public void deleteDepartment(Department department) throws UserException {
+		Long empCountForDeptId = departmentDao.getEmpCountForDeptId(department.getId());
+		if (empCountForDeptId !=0) {
+			throw new UserException(ErrorCodes.ERROR4.getErrorCode(), ErrorCodes.ERROR4.getDesc());
+		}
 		departmentDao.deleteDepartment(department);
 	}
 

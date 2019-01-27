@@ -11,6 +11,12 @@ public final class Constants {
 	public static final String GET_EMP_BY_PAGE = "/getEmpsByPage";
 	public static final String EMP_GET_BY_FILTERS = "/empGetByFilters";
 	
+	public static final String SEARCH_DEPT = "/searchDept";
+	public static final String GET_DEPTS = "/getDepts";
+	public static final String DEPT_UPDATE = "/deptUpdate";
+	public static final String DEPT_DELETE = "/deptDelete";
+	public static final String DEPT_CREATE = "/deptCreate";
+	
 	public static final String INDEX = "/index";
 	public static final String COMMAND = "command";
 	public static final String LOGIN = "/login";

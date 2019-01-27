@@ -27,7 +27,7 @@ value =
  @NamedQuery(name =Employee.GET_EMP_COUNT,query = "select count(*) from Employee"),
  @NamedQuery(name =Employee.GET_EMP_BY_AUTH,query = 
  " from Employee e LEFT JOIN FETCH e.addresses a  "
- + " LEFT JOIN FETCH e.manager mgr"
+ + " LEFT JOIN FETCH e.manager mgr "
  + " where e.loginName=:eName and e.password=:ePass"),
  @NamedQuery(name =Employee.CHECK_EMP_EXISTS,query = "select count(*) from Employee  where loginname=:inputName"),
  @NamedQuery(name =Employee.GET_EMPLOYEE_WITH_ADDRESSES,query = "from Employee e LEFT JOIN FETCH e.addresses a where e.id=:id "),
@@ -257,5 +257,8 @@ public class Employee implements Serializable {
 	public boolean isAdmin(){
 		return department!=null && department.getName().equals("admin");
 	}
-
+	
+	public String getManagerName(){
+		return manager!=null ? manager.fName + " " + manager.lName : "NA"; 
+	}
 }

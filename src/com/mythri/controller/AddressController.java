@@ -1,7 +1,6 @@
 package com.mythri.controller;
 
 import static com.mythri.util.Constants.COMMAND;
-import static com.mythri.util.Constants.EMP_CREATE;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,23 +11,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mythri.entity.Address;
-import com.mythri.entity.Department;
 import com.mythri.service.AddressService;
-import com.mythri.service.DepartmentService;
 import com.mythri.util.UserException;
 
 @Controller
 public class AddressController {
 
+	private static final String ADD_CREATE = "/addCreate";
+	
 	@Autowired
 	private AddressService addressService;
 
-	@RequestMapping(value = "/addCreate", method = RequestMethod.GET)
+	@RequestMapping(value = ADD_CREATE, method = RequestMethod.GET)
 	public ModelAndView registerForm() {
 		return new ModelAndView("register", COMMAND, new Address());
 	}
 
-	@RequestMapping(value = "/addCreate", method = RequestMethod.POST)
+	@RequestMapping(value = ADD_CREATE, method = RequestMethod.POST)
 	public ModelAndView saveDepartment(@ModelAttribute(COMMAND) Address address, 
 			BindingResult result) {
 		try {

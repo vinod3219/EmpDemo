@@ -13,7 +13,7 @@ public interface DepartmentService {
 	
 	public Department getDepartmentById(int id);
 	
-	public void deleteDepartment(Department department);
+	public void deleteDepartment(Department department) throws UserException;
 	
 	public List<Department> listDepartments();
 

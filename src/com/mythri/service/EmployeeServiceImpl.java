@@ -97,4 +97,13 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public List<Employee> getBasicEmpDetails() {
 		return employeeDao.getBasicEmpDetails();
 	}
+	
+	@Override
+	public boolean changePwd(Employee employee,String oldPass, String newPass){
+		if(!employee.getPassword().equals(oldPass)){
+			return false;
+		}
+		employeeDao.updatePwd(employee.getId(),newPass);
+		return true;
+	}
 }
